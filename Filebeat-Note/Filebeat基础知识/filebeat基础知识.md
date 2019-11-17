@@ -213,14 +213,8 @@ Filebeat主要由两个组件组成：prospector和harvester。
 	* 如果输入类型为日志，则prospector将查找路径匹配的所有文件，并为每一个文件启动给一个harvester。
 	* Filebeat目前支持两种prospector类型;log和stdin。
 
-<<<<<<< HEAD
-#### 问题：Filebeat如何记录文件的状态？
-||||||| merged common ancestors
-####问题：Filebeat如何记录文件的状态？
-=======
 
-###问题：Filebeat如何记录文件的状态？
->>>>>>> 42f024f9c511ee8790af99d0e677ddfba5126ad9
+### 问题：Filebeat如何记录文件的状态？
 * Filebeat通过将文件的状态刷新到磁盘上的注册文件中来保存每个文件的状态。这个文件位于filebeat目录下的`data/registry`中。该状态用于记住harvester正在读取的文件的最后偏移量offset，并确保发送所有文件的行内容。
 * 如果filebeat的output无法访问(比如Elasticsearch宕机了)，Filebeat会追踪最后发送的行，并在output恢复时，继续读取文件。
 * Filebeat运行时，每个prospector内存中也会保存文件的状态信息，当重启Filebeat时，将使用前面记录哎磁盘上的注册文件数据来重建之前读取的日志文件的状态，Filebeat让每个harvester从注册文件中保存的最后偏移量offset继续读取。
