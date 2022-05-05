@@ -29,8 +29,7 @@ Filebeat可以收集不同类型的日志文件，甚至是监听一个目录下
 官网下载适配相应移动的安装包: [https://www.elastic.co/cn/downloads/beats/filebeat](https://www.elastic.co/cn/downloads/beats/filebeat)
 2. 解压filebeat安装包`tar -zxvf filebeat-7.4.2-linux-x86_64.tar.gz`
 3. 新建一个测试的filebeat的配置文件filebat_test.yml，这个配置文件的意思是：我们开启一个filebeat进程，然后filebeat抓取我们在控制台的输入，然后输出到控制台。
-
-	```
+```
 filebeat.inputs:
 - type: stdin
   enabled: true
@@ -38,19 +37,22 @@ output.console:
   pretty: true
   enable: true
 ```
+
 4. 运行filebeat，加载测试的配置文件。
 
-	```
+```
 [root@centos-linux filebeat-7.4.2-linux-x86_64]# ./filebeat -e -c filebeat_test.yml
 2019-11-17T18:12:49.252+0800	INFO	instance/beat.go:607	Home path: [/home/filebeat-7.4.2-linux-x86_64] Config path: [/home/filebeat-7.4.2-linux-x86_64] Data path: [/home/filebeat-7.4.2-linux-x86_64/data] Logs path: [/home/filebeat-7.4.2-linux-x86_64/logs]
 2019-11-17T18:12:49.266+0800	INFO	instance/beat.go:615	Beat ID: 7341e2e8-6921-4a17-9e94-9260a1f06eac
 2019-11-17T18:12:49.267+0800	INFO	[seccomp]	seccomp/seccomp.go:124	Syscall filter successfully installed
 ...
 
-	```
+```
+
+
 5. 在控制台输入测试数据：hello filebeat, 查看控制台输出。
 
-	```
+```
 	hello filebeat
  {
   "@timestamp": "2019-11-17T10:15:56.705Z",
@@ -84,7 +86,8 @@ output.console:
   }
 }
 ```
-	filebeat在控制台的输出结果是一个json格式的信息。这个json包含:时间戳、filebeat的信息、filebeat抓取的message、log信息的地址和起始位置、filebeat接收输入的类型等等。当然最终要的我们输入的hello filebeat就是在message中。这个json也就是下游的logstash、es或者是kafka接收的输入。
+
+filebeat在控制台的输出结果是一个json格式的信息。这个json包含:时间戳、filebeat的信息、filebeat抓取的message、log信息的地址和起始位置、filebeat接收输入的类型等等。当然最终要的我们输入的hello filebeat就是在message中。这个json也就是下游的logstash、es或者是kafka接收的输入。
 	
 
 ## Filebeat读取文件
@@ -102,6 +105,7 @@ output.console:
   pretty: true
   enable: true
 ```
+
 建立上述配置文件`test.log`之后，我们启动该配置文件的filebeat进程，这个时候我们的`/home/filebeat-7.4.2-linux-x86_64/testdata/test.log`日志文件中还没有内容，所以控制台只有一些filebeat的信息。
 
 ```
